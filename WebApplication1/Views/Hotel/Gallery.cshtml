@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Gallery";
+    Layout = "~/Views/Shared/Main.cshtml";
+}
+<html>
+<head>
+    <style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+            .gallery img {
+                width: calc(33.33% - 10px);
+                height: auto;
+                object-fit: cover;
+                margin: 5px;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+
+                .gallery img:hover {
+                    transform: scale(1.05);
+                }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+            .button-container button {
+                width: 80px;
+                height: 40px;
+                margin: 0 5px;
+                padding: 5px 10px;
+                background-color: #FF9900;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .button-container button:hover {
+                    background-color: #FF00FF;
+                }
+
+    </style>
+</head>
+<body>
+    <div class="button-container p-5">
+        <button onclick="showAllImages()" id="allButton">All</button>
+        <button onclick="showRoomImages()" id="roomButton">Room</button>
+        <button onclick="showServiceImages()" id="serviceButton">Service</button>
+    </div>
+    <div class="gallery container" id="imageGallery"></div>
+
+    <script>
+        var roomButton = document.getElementById("roomButton");
+        var serviceButton = document.getElementById("serviceButton");
+        var allButton = document.getElementById("allButton");
+
+        roomButton.addEventListener("click", showRoomImages);
+        serviceButton.addEventListener("click", showServiceImages);
+        allButton.addEventListener("click", showAllImages);
+        var roomImages = [
+            "../img/room/room1.jpg",
+            "../img/room/room2.jpg",
+            "../img/room/room3.jpg",
+            "../img/room/room4.jpg",
+            "../img/room/room5.jpg",
+            "../img/room/room6.jpg",
+            "../img/room/room7.png",
+            "../img/room/room8.jpg",
+            // Thêm đường dẫn ảnh khác trong thư mục room vào đây
+        ];
+
+        var serviceImages = [
+            "../img/service/service1.jpg",
+            "../img/service/service2.jpg",
+            "../img/service/service3.jpg",
+            "../img/service/service4.jpg",
+            "../img/service/service5.jpg",
+            "../img/service/service6.jpg",
+            "../img/service/service7.jpg",
+            // Thêm đường dẫn ảnh khác trong thư mục service vào đây
+        ];
+
+        var allImages = roomImages.concat(serviceImages);
+
+        var galleryDiv = document.getElementById("imageGallery");
+
+        function showRoomImages() {
+            clearGallery();
+            displayImages(roomImages);
+
+        }
+
+        function showServiceImages() {
+            clearGallery();
+            displayImages(serviceImages);
+        }
+
+        function showAllImages() {
+            clearGallery();
+            displayImages(allImages);
+        }
+
+        function clearGallery() {
+            galleryDiv.innerHTML = "";
+        }
+
+        function displayImages(images) {
+            for (var i = 0; i < images.length; i++) {
+                var img = document.createElement("img");
+                img.src = images[i];
+                img.alt = "Image " + (i + 1);
+                galleryDiv.appendChild(img);
+            }
+        }
+
+        // Mặc định hiển thị ảnh từ nút "All" khi trang web được tải xong
+        window.onload = function () {
+            showAllImages();
+        };
+
+
+    </script>
+</body>
+</html>

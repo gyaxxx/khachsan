@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "ListRoom";
+    Layout = "~/Views/Shared/Main.cshtml";
+}
+
+@model List<RoomType>
+
+<style>
+    .list-room-item {
+        /* background-color: #D2E3C8; */
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+        .list-room-item img {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .list-room-item h6 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f35525;
+            display: inline-block;
+            margin-top: 10px;
+            float: right;
+        }
+
+        .list-room-item span.RoomName {
+            background-color: #fbd9cf;
+            font-weight: 500;
+            padding: 20px 0px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #1e1e1e;
+            padding: 5px 12px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+    .image-container {
+        display: block;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        background-position: 50%;
+        background-size: cover;
+    }
+
+    .view-btn a {
+        display: inline-block;
+        background-color: #1e1e1e;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        height: 40px;
+        line-height: 40px;
+        padding: 0px 30px;
+        border-radius: 25px;
+        transition: all .3s;
+    }
+    .search-nav{
+        background-color: #3D2C8D;
+        border-radius : 10px;
+        color:white;
+    }
+
+    
+</style>
+
+<div class="image-container top-image" style="background-image: url(https://moonlightnhatrang.com/wp-content/uploads/2022/12/Family-Room-_1-scaled.jpg)">
+</div>
+<div class="container">
+    <div class="row pt-5">
+        <div class="search-nav col-lg-3 col-md-3">
+            <div class="py-5">
+                <h3>Các lựa chọn<br /> tìm kiếm</h3>
+                <div class="list-hotel-search">
+                    <div class="select-pos py-5">
+                        <p>Sắp xếp theo giá</p>
+                        <select name="sort" id="sort" class="from-control">
+                            <option value="0">Lựa chọn</option>
+                            <option value="1">Giá Thấp đến cao</option>
+                            <option value="2">Giá Cao đến thấp</option>
+                        </select>
+                    </div>
+
+                    <br />
+                    <br />
+                    <div class="select-pos">
+                        <input name="search" type="text" class="form-control" placeholder="Tìm Kiếm Theo Loại Phòng" s>
+                    </div>
+                </div>
+
+            </div>
+            <div class="note-title mt-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="">Liên hệ 0258 390 9988 <br /> để được hỗ trợ trực tiếp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="row ">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-6 col-md-6 mb-3">
+                        <div class="list-room-item">
+                            <a href="property-details.html"><img src="https://a25hotel.com/files/images/khach-san-tai-ha-noi/khach-san-tai-quan-hai-ba-trung/khach-san-minh-khai/NHH_4395.jpg" alt=""></a>
+                            <span class="RoomName text-center col-md-4 mx-3">@item.RoomTypeName</span>
+                            <h6 class="col-md-6">@item.Price VND</h6>
+                            <div class="bed-and-price mx-3 mt-2 w-100">
+                                <p>
+                                    Loại giường:  <strong>@item.Bed</strong>
+                                    <br />
+                                    Diện tích : <strong>@item.Area m2</strong>
+                                </p>
+                            </div>
+
+                            <div class="view-btn text-center pb-3">
+                                @{
+                                    // Kiểm tra xem RoomTypeName có hai từ trở lên không
+                                    string[] words = @item.RoomTypeName.Split(' ');
+
+                                    // Khởi tạo biến ACName
+                                    string ACName = @item.RoomTypeName;
+
+                                    if (words.Length >= 2)
+                                    {
+                                        // Nếu có, thực hiện chuyển đổi và gán vào ACName
+                                        ACName = $"{words[0]}_{words[1]}";
+                                    }
+                                }
+                                <a asp-controller="Hotel" asp-action="@ACName">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
